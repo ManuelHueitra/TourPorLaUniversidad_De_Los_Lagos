@@ -13,7 +13,7 @@
 ##
 ## El _() que rodea la cadena de texto la señala como traducible.
 
-define config.name = _("proyec")
+define config.name = _("Tour por la Universidad")
 
 
 ## Determina si el título dado más arriba se muestra en el menú principal.
@@ -24,7 +24,7 @@ define gui.show_name = True
 
 ## Versión del juego.
 
-define config.version = "1.0"
+define config.version = "1.1"
 
 
 ## Texto situado en la pantalla 'Acerca de' del juego. Sitúa el texto entre
@@ -37,7 +37,7 @@ define gui.about = _p("""
 ## Nombre breve del juego para ejecutables y directorios en la distribución.
 ## Debe contener solo carácteres ASCII, sin espacios, comas o puntos y coma.
 
-define build.name = "proyec"
+define build.name = "Tour"
 
 
 ## Sonidos y música ############################################################
@@ -187,27 +187,5 @@ init python:
     build.classify('**/.**', None)
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
-
-    ## Para archivar, se clasifican como 'archive'.
-
-    # build.classify('game/**.png', 'archive')
-    # build.classify('game/**.jpg', 'archive')
-
-    ## Los archivos que corresponden a patrones de documentation se duplican en
-    ## la distribución de mac; aparecerán en los archivos app y zip.
-
     build.documentation('*.html')
     build.documentation('*.txt')
-
-
-## Se necesita una clave de licencia de Google Play para realizar compras dentro
-## de la aplicación. Se puede encontrar en la consola de desarrollador de Google
-## Play, en "Monetizar" > "Configuración de la monetización" > "Licencias".
-
-# define build.google_play_key = "..."
-
-
-## Los nombres de usuario y de proyecto asociados con un proyecto itch.io,
-## separados por una barra.
-
-# define build.itch_project = "renpytom/test-project"
