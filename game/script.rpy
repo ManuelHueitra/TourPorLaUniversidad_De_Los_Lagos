@@ -4,6 +4,7 @@ define guia = Character("Guía")
 image Entrada_Afuera = "inicio.jpg"
 image bibliote_1 = "bibliote_entrad.jpg"
 image seg_derecho = "seguir_derecho.jpg" 
+image entrada_casino = "entrada_casino.jpg"
 
 label start:
     scene Entrada_Afuera
@@ -47,6 +48,18 @@ label derecho:
         # "Ir al casino":
         #     jump casino
 
+label casino:
+    scene entrada_casino
+    with dissolve
+
+    guia "Aquí estamos en el casino. Este es un lugar donde los estudiantes pueden relajarse y disfrutar de un buen rato."
+
+    menu:
+        "¿A donde vamos ahora?"
+        "Volver al inicio":
+            jump start
+        "Salir del juego":
+            jump despedida
 label despedida:
     scene black
     with fade
