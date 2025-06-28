@@ -48,9 +48,7 @@ label start:
             jump despedida
 
 #    stop music fadeout 1.0
-#    scene black # O la escena que quieras mostrar antes del video
-#    
-#    # Esta es la forma correcta de reproducir un video en Ren'Py para una secuencia
+#    scene black
 #    play movie "videos/video_biblioteca.mp4" 
 #    
 #    $ renpy.pause(11.0, hard=True) # Duración exacta del video    
