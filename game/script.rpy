@@ -1,9 +1,9 @@
 ﻿#Guia
 define guia = Character("Guía")
 image guia = "ulises.png"
-image guia_camina = "ulises_caminando.png"
+image guia_camina = "ulises_caminando_por_detras.png"
 image guia_pregunta = "ulises_pregun.png"
-image guia_saludo = "ulises_saludo.png"
+image guia_saludo = "ulises_saludando.png"
 image guia_apunta = "ulises_señalando.png"
 
 #intrada  
