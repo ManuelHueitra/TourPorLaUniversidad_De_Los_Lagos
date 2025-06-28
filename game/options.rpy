@@ -24,14 +24,22 @@ define gui.show_name = True
 
 ## Versión del juego.
 
-define config.version = "1.1"
+define config.version = "1.2"
 
 
 ## Texto situado en la pantalla 'Acerca de' del juego. Sitúa el texto entre
 ## comillas triples y deja una línea en blanco entre párrafos.
 
-define gui.about = _p("""
+define gui.about = _p("""  
 """)
+
+define gui.about = _p("""
+Tour en la Universidad de Los Lagos
+Este juego interactivo fue desarrollado como parte del Taller de Introducción a la Ingeniería Informática de la Universidad de Los Lagos. Su propósito es ayudar a los estudiantes nuevos, visitantes y personas interesadas en conocer el campus Chinquihue de forma entretenida y educativa.
+A través de este tour virtual, los usuarios podrán recorrer distintos espacios importantes de la universidad, como la biblioteca, las salas de clases y otros lugares comunes, con el objetivo de familiarizarse con el entorno y moverse con mayor confianza en su vida universitaria diaria.
+El juego está diseñado como una novela visual utilizando Ren’Py, permitiendo presentar imágenes, diálogos y decisiones para una experiencia sencilla y accesible, tanto en computador como en dispositivos móviles.
+Este proyecto fue realizado de manera individual, combinando conocimientos de programación, diseño de interfaces y análisis de problemáticas reales en la región, con el fin de aportar una solución digital innovadora al proceso de orientación de estudiantes en la Universidad de Los Lagos.
+Gracias por probar esta aplicación educativa y ser parte de esta experiencia de aprendizaje. """)
 
 
 ## Nombre breve del juego para ejecutables y directorios en la distribución.
