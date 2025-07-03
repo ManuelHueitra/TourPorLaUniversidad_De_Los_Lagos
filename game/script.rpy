@@ -30,6 +30,16 @@ image gym1 = "gym1.jpg"
 image gym2 = "gym2.jpg"
 #salas de profesores
 image salaprofesores = "sala_de_profesores.jpg"
+#videos 
+image biblioteca_video = Movie(play="videos/video_biblioteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image casino_arriba = Movie(play="videos/casino_arriba.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image ir_videoconfe = Movie(play="videos/ir_a_videoconferencia.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image ir_algym = Movie(play="videos/ir_a_gym.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image subir_lab = Movie(play="videos/subir_a_laboratorio.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image video_biblioteca = Movie(play="videos/video_biblioteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+
+#!image principal = "principal.jpg"
+#!image salavideoconferencia = "salavideoconferencia.jpg"
 
 label start:
     scene Entrada_Afuera
@@ -41,29 +51,38 @@ label start:
     menu:
         "¿A que lugar vamos para empezar?"
         "Ir la biblioteca":
-            jump bibliote_entrad
+            stop music fadeout 1.0
+            scene black
+            show biblioteca_video
+            $ renpy.pause(11.0, hard=True)
+            hide biblioteca_video
+            jump biblioteca
         "Seguir derecho":
             jump derecho
+        "Ir al edificio principal":
+            jump edificio_principal
         "Salir del juego":
             jump despedida
 
-#    stop music fadeout 1.0
-#    scene black
-#    play movie "videos/video_biblioteca.mp4" 
-#    
-#    $ renpy.pause(11.0, hard=True) # Duración exacta del video    
-#    stop movie
-#    hide movie    
-#    jump biblioteca
+label volver_inicio:
+    menu:
+        "¿Qué deseas hacer?"
+        "Volver a las opciones principales":
+            jump start
+        "Finalizar el tour":
+            jump despedida
+        "Volver atrás":
+            return
 
 label biblioteca:
     scene bibliote_entrad
+    show guia_apunta 
     with dissolve
     guia "Aquí estamos en la biblioteca. Este lugar es ideal para estudiar, leer o trabajar en grupo."
     menu:
         "¿Donde quieres ir ahora?"
         "Volver al inicio":
-            jump start
+            jump volver_inicio
         "Salir del juego":
             jump despedida
 
@@ -74,12 +93,27 @@ label derecho:
     guia "¿A donde vamos ahora?"
 
     menu:
+        "Ir a la sala de videoconferencia":
+            stop music fadeout 1.0
+            show sala_videoconferencia
+            $ renpy.pause(3.0, hard=True)
+            hide sala_videoconferencia
+            jump sala_videoconferencia
         "Volver al inicio":
-            jump start
+            jump volver_inicio
         "Salir del juego":
             jump despedida
-        "Ir al casino":
-            jump casino
+
+label sala_videoconferencia:
+    scene #! salavideoconferencia
+    with dissolve
+    guia "Esta es la sala de videoconferencia. Aquí puedes realizar reuniones virtuales o asistir a clases en línea."
+    menu:
+        "¿A donde vamos ahora?"
+        "Volver al inicio":
+            jump volver_inicio
+        "Salir del juego":
+            jump despedida
 
 label edificio_administrativo: 
     scene edificio_administrativo
@@ -97,7 +131,26 @@ label edificio_administrativo_entrad:
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
-            jump start
+            jump volver_inicio
+        "Salir del juego":
+            jump despedida
+
+label edificio_principal
+    scene #! principal 
+    with dissolve
+    guia "Este es el edificio principal de la universidad. Aquí puedes encontrar las aulas, laboratorios y oficinas de los profesores."
+    menu:
+        "¿A donde vamos ahora?"
+        "Ir al casino":
+            jump casino #!
+        "seguir derecho":
+            jump recto
+        "ir a las salas"  #!
+            jump aulas
+        "ir a la sala de profesores":
+            jump sala_profesores
+        "Volver al inicio":
+            jump volver_inicio
         "Salir del juego":
             jump despedida
 
@@ -125,11 +178,11 @@ label casino_arriba:
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
-            jump start
+            jump volver_inicio
         "Salir del juego":
             jump despedida
 
-label sala_materiales:
+label sala_materiales  #!:
     scene sala_materiales
     with dissolve
 
@@ -138,7 +191,7 @@ label sala_materiales:
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
-            jump start
+            jump volver_inicio
         "Salir del juego":
             jump despedida
 
@@ -157,11 +210,21 @@ label laboratorio:
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
-            jump start
+            jump volver_inicio
         "Salir del juego":
             jump despedida
 
+label recto:
+    guia "Aquí irías derecho por el pasillo principal."
+    jump volver_inicio
 
+label aulas:
+    guia "Estas son las salas de clases."
+    jump volver_inicio
+
+label sala_profesores:
+    guia "Esta es la sala de profesores."
+    jump volver_inicio
 
 label despedida:
     scene black
