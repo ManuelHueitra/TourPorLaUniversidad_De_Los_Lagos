@@ -8,6 +8,7 @@ image guia_apunta = "ulises_señalando.png"
 
 #intrada  
 image Entrada_Afuera = "inicio.jpg"
+image entrada_principal = "dentro_edi_principal.jpg"
 #bilbioteca imagenes
 image bibliote_entrad = "bibliote_entrad.jpg"
 image seg_derecho = "seguir_derecho.jpg" 
@@ -36,9 +37,9 @@ image casino_arriba = Movie(play="videos/casino_arriba.webm", size=(1920,1080), 
 image ir_videoconfe = Movie(play="videos/ir_a_videoconferencia.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image ir_algym = Movie(play="videos/ir_a_gym.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image subir_lab = Movie(play="videos/subir_a_laboratorio.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
-image video_biblioteca = Movie(play="videos/video_biblioteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
-
-#!image principal = "principal.jpg"
+image ir_edificio_principal = Movie(play="videos/ir_a_principal.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image biblioteca_completa = Movie(play="videos/ir_a_bibloeteca_comple.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image adentro_biblioteca = Movie(play="videos/entrada_bibleoteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 #!image salavideoconferencia = "salavideoconferencia.jpg"
 
 label start:
@@ -46,45 +47,47 @@ label start:
     show guia_saludo
     with fade
     queue music "audio/1.mp3" volume 0.5 #Incio de la música 
-    guia "Hola, bienvenido al tour sobre todos los lugares de la Universidad de Los Lagos."
-    guia "Hoy vamos a visitar todos los lugares del campus de Chinquihue."
+    guia "¡Hola! Bienvenido al tour virtual de la Universidad de Los Lagos. Hoy te acompañaré a recorrer los lugares más importantes de nuestro campus Chinquihue. Así podrás conocerlos antes de venir y no te perderás."
+    guia "Mi nombre es Ulises y hoy te acompañaré a conocer los espacios más importantes de nuestro campus Chinquihue. Sé que a veces es difícil ubicarse cuando uno es nuevo o viene de visita, por eso este recorrido"
+    guia "te ayudará a reconocer los lugares antes de llegar. Aquí podrás ver imágenes reales y aprender para qué sirve cada espacio de la universidad."
     menu:
         "¿A que lugar vamos para empezar?"
         "Ir la biblioteca":
             stop music fadeout 1.0
             scene black
-            show biblioteca_video
+            show biblioteca_completa
             $ renpy.pause(11.0, hard=True)
-            hide biblioteca_video
             jump biblioteca
         "Seguir derecho":
             jump derecho
         "Ir al edificio principal":
+            stop music fadeout 1.0
+            scene black
+            show ir_edificio_principal
+            $ renpy.pause(10.2, hard=True)
             jump edificio_principal
         "Salir del juego":
-            jump despedida
+            jump volver_inicio
 
 label volver_inicio:
     menu:
         "¿Qué deseas hacer?"
-        "Volver a las opciones principales":
+        "Volver al principales":
             jump start
         "Finalizar el tour":
             jump despedida
-        "Volver atrás":
-            return
 
 label biblioteca:
     scene bibliote_entrad
-    show guia_apunta 
+    show guia_camina
+    guia "!Entremos!"
+    show adentro_biblioteca
+    $ renpy.pause(7.0, hard=True)
+    hide adentro_biblioteca
     with dissolve
-    guia "Aquí estamos en la biblioteca. Este lugar es ideal para estudiar, leer o trabajar en grupo."
-    menu:
-        "¿Donde quieres ir ahora?"
-        "Volver al inicio":
-            jump volver_inicio
-        "Salir del juego":
-            jump despedida
+    guia "Esta es la biblioteca. Aquí puedes encontrar una gran variedad de libros, y recursos digitales para tus estudios. Además, la biblioteca cuenta con computadores disponibles para buscar información o realizar tus trabajos."
+    guia "Si necesitas un lugar tranquilo para concentrarte, aquí encontrarás zonas de silencio total. Es importante que respetes las normas de silencio y cuidado de los libros para que todos puedan usarlos."
+    jump volver_inicio #! falta una foto
 
 label derecho:
     scene seg_derecho
@@ -99,6 +102,8 @@ label derecho:
             $ renpy.pause(3.0, hard=True)
             hide sala_videoconferencia
             jump sala_videoconferencia
+        "Ir al edicio administrativo":
+            jump edificio_administrativo_entrad
         "Volver al inicio":
             jump volver_inicio
         "Salir del juego":
@@ -135,22 +140,24 @@ label edificio_administrativo_entrad:
         "Salir del juego":
             jump despedida
 
-label edificio_principal
-    scene #! principal 
+label edificio_principal:
+    scene entrada_principal
+    show guia_camina
     with dissolve
     guia "Este es el edificio principal de la universidad. Aquí puedes encontrar las aulas, laboratorios y oficinas de los profesores."
     menu:
         "¿A donde vamos ahora?"
-        "Ir al casino":
-            jump casino #!
-        "seguir derecho":
-            jump recto
-        "ir a las salas"  #!
+        "Ir a las aulas":
             jump aulas
-        "ir a la sala de profesores":
+        "Ir a la sala de profesores":
             jump sala_profesores
-        "Volver al inicio":
-            jump volver_inicio
+        "Ir al casino":
+            stop music fadeout 1.0
+            scene black
+            show ir_algym
+            $ renpy.pause(10.0, hard=True)
+            hide ir_algym
+            jump casino
         "Salir del juego":
             jump despedida
 
@@ -182,18 +189,18 @@ label casino_arriba:
         "Salir del juego":
             jump despedida
 
-label sala_materiales  #!:
-    scene sala_materiales
-    with dissolve
+#!label sala_materiales  #!:
+#!    scene sala_materiales
+#!    with dissolve
 
-    guia "Esta es la sala de materiales. Aquí puedes encontrar todo lo que necesitas para tus proyectos y trabajos."
+#!    guia "Esta es la sala de materiales. Aquí puedes encontrar todo lo que necesitas para tus proyectos y trabajos."
 
-    menu:
-        "¿A donde vamos ahora?"
-        "Volver al inicio":
-            jump volver_inicio
-        "Salir del juego":
-            jump despedida
+#!    menu:
+#!        "¿A donde vamos ahora?"
+#!        "Volver al inicio":
+#!            jump volver_inicio
+#!        "Salir del juego":
+#!            jump despedida
 
 label escalera_lab:
     scene escalera_lab 
