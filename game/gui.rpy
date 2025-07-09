@@ -302,8 +302,8 @@ define gui.frame_tile = False
 
 ## Barras, barras de desplazamiento y deslizadores #############################
 ##
-## Aquí se controla la apariencia y dimensiones de barras, barras de
-## deslizamiento y deslizadores.
+## Aquí se controla la apariencia y dimensiones de barras, barras de deslizamiento
+## y deslizadores.
 ##
 ## La GUI por defecto solo usa deslizadores y barras de deslizamiento
 ## verticales. Las otras barras solo se usan en pantallas escritas por el
@@ -483,3 +483,55 @@ init python:
 
         gui.nvl_button_width = 1860
         gui.nvl_button_xpos = 30
+
+define gui.main_menu_background = "images/portada.jpg"
+define gui.nvl_button_xalign = 0.5
+define gui.navigation_xpos = 30
+define gui.page_button_borders = Borders(30, 6, 30, 6)
+define gui.page_spacing = 15
+define gui.pref_spacing = 30
+define gui.confirm_button_text_xalign = 0.5
+define gui.choice_button_text_xalign = 0.5
+
+screen main_menu():
+    tag menu
+
+    add gui.main_menu_background
+
+    # Botones rápidos
+    vbox:
+        style_prefix "quick"
+        xalign 1.0
+        yalign 0.0
+        spacing gui.navigation_spacing
+
+        # Botón de carga rápida
+        textbutton "Cargar" action ShowMenu("load")
+        # Botón de guardar rápida
+        textbutton "Guardar" action ShowMenu("save")
+        # Botón de preferencias
+        textbutton "Preferencias" action ShowMenu("preferences")
+        # Botón de salir
+        textbutton "Salir" action Quit()
+
+    # Título del juego
+    text "Mi Juego" size gui.title_text_size font gui.title_text_font color gui.title_text_color xalign 0.5 yalign 0.1
+
+    # Menú principal
+    vbox:
+        style_prefix "main"
+        xalign 0.5
+        yalign 0.3
+        spacing gui.navigation_spacing
+
+        # Botón de nuevo juego
+        textbutton "Nuevo Juego" action Start()
+        # Botón de cargar juego
+        textbutton "Cargar Juego" action ShowMenu("load")
+        # Botón de preferencias
+        textbutton "Preferencias" action ShowMenu("preferences")
+        # Botón de salir
+        textbutton "Salir" action Quit()
+
+    # Créditos
+    text "Hecho con ♥ por el equipo de desarrollo." size gui.notify_text_size font gui.notify_text_font color gui.notify_text_color xalign 0.5 yalign 0.9

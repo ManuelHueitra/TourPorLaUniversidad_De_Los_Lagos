@@ -2,10 +2,10 @@
 define guia = Character("Guía")
 image guia = "ulises.png"
 image guia_camina = "ulises_caminando_por_detras.png"
-image guia_pregunta = "ulises_pregun.png"
+image guia_pregunta = "ulises_preguntando.png"
 image guia_saludo = "ulises_saludando.png"
 image guia_apunta = "ulises_señalando.png"
-
+image portada = "portada.jpg"
 #intrada  
 image Entrada_Afuera = "inicio.jpg"
 image entrada_principal = "dentro_edi_principal.jpg"
@@ -14,9 +14,7 @@ image bibliote_entrad = "bibliote_entrad.jpg"
 image seg_derecho = "seguir_derecho.jpg" 
 image entrada_casino = "entrada_casino.jpg"
 #edificio administrativo imagenes
-image edificio_administrativo_entrad = "edificio_admin_afuera.jpg"
-image edificio_administrativo = "edificio_administrativo.jpg"
-
+image edificio_administrativo_entrad = "edificio_administrativo.jpg"
 #casino imagenes 
 image casino = "casino.jpg"
 image casino_interior = "casino_interior.jpg"
@@ -40,8 +38,8 @@ image subir_lab = Movie(play="videos/subir_a_laboratorio.webm", size=(1920,1080)
 image ir_edificio_principal = Movie(play="videos/ir_a_principal.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image biblioteca_completa = Movie(play="videos/ir_a_bibloeteca_comple.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image adentro_biblioteca = Movie(play="videos/entrada_bibleoteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
-#!image salavideoconferencia = "salavideoconferencia.jpg"
-
+image dentro_biblio = "dentro_biblio.jpg"
+image ir_a_administrativo = Movie(play="videos/ir_a_administrativo.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 label start:
     scene Entrada_Afuera
     show guia_saludo
@@ -85,9 +83,11 @@ label biblioteca:
     $ renpy.pause(7.0, hard=True)
     hide adentro_biblioteca
     with dissolve
+    scene dentro_biblio
+    show guia_pregunta
     guia "Esta es la biblioteca. Aquí puedes encontrar una gran variedad de libros, y recursos digitales para tus estudios. Además, la biblioteca cuenta con computadores disponibles para buscar información o realizar tus trabajos."
     guia "Si necesitas un lugar tranquilo para concentrarte, aquí encontrarás zonas de silencio total. Es importante que respetes las normas de silencio y cuidado de los libros para que todos puedan usarlos."
-    jump volver_inicio #! falta una foto
+    jump volver_inicio
 
 label derecho:
     scene seg_derecho
@@ -103,6 +103,12 @@ label derecho:
             hide sala_videoconferencia
             jump sala_videoconferencia
         "Ir al edicio administrativo":
+            stop music fadeout 1.0
+            guia "Vamos al edificio administrativo."
+            show ir_a_administrativo
+            show guia_camina at right
+            with dissolve
+            $ renpy.pause(17.0, hard=True)
             jump edificio_administrativo_entrad
         "Volver al inicio":
             jump volver_inicio
@@ -110,7 +116,8 @@ label derecho:
             jump despedida
 
 label sala_videoconferencia:
-    scene #! salavideoconferencia
+    scene 
+    show guia_camina
     with dissolve
     guia "Esta es la sala de videoconferencia. Aquí puedes realizar reuniones virtuales o asistir a clases en línea."
     menu:
@@ -188,20 +195,6 @@ label casino_arriba:
             jump volver_inicio
         "Salir del juego":
             jump despedida
-
-#!label sala_materiales  #!:
-#!    scene sala_materiales
-#!    with dissolve
-
-#!    guia "Esta es la sala de materiales. Aquí puedes encontrar todo lo que necesitas para tus proyectos y trabajos."
-
-#!    menu:
-#!        "¿A donde vamos ahora?"
-#!        "Volver al inicio":
-#!            jump volver_inicio
-#!        "Salir del juego":
-#!            jump despedida
-
 label escalera_lab:
     scene escalera_lab 
     with dissolve   
@@ -240,4 +233,14 @@ label despedida:
     guia "Gracias por acompañarme en este recorrido por todos los rincones de nuestra universidad."
     guia "Espero que hayas disfrutado este tour virtual y que pronto puedas venir a conocerlo todo en persona."
 
+    return
+
+label splashscreen:
+    scene black
+    show image "images/portada.jpg"
+    with dissolve
+    return
+
+label before_main_menu:
+    call splashscreen
     return
