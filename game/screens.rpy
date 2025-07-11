@@ -349,18 +349,11 @@ style navigation_button_text:
 
 screen main_menu():
 
-    ## Esto asegura que cualquier otra pantalla de menu es remplazada.
     tag menu
-    
-    # Imagen de fondo personalizada
-    #!foto aqui add "nombre_de_tu_imagen.jpg" # o .png
 
-    ## Este marco vacío oscurece el menu principal.
     frame:
         style "main_menu_frame"
 
-    ## La sentencia 'use' incluye otra pantalla dentro de esta. El contenido
-    ## real del menú principal está en la pantalla de navegación.
     use navigation
 
     if gui.show_name:
@@ -368,11 +361,17 @@ screen main_menu():
         vbox:
             style "main_menu_vbox"
 
-            text "[config.name!t]":
-                style "main_menu_title"
+            frame:
+                background Solid("#00000080")  # Negro 50% transparente
+                padding (10, 5)
 
-            text "[config.version]":
+                text config.name:
+                    size 45
+                    color "#FFFFFF"
+
+            text config.version:
                 style "main_menu_version"
+
 
 
 style main_menu_frame is empty
@@ -475,10 +474,16 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     textbutton _("Volver"):
         style "return_button"
-
         action Return()
 
-    label title
+    ## 🔷 TÍTULO CON FONDO NEGRO DETRÁS
+    frame:
+        background Solid("#000000")  # Fondo negro sólido
+        padding (10, 5)  # Espacio interno para que no quede pegado
+
+        text title:
+            style "main_menu_title"
+            color "#FFFFFF"  # Color blanco para el texto
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")

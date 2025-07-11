@@ -1,5 +1,6 @@
 ﻿#Guia
-define guia = Character("Guía")
+define guia = Character("???")
+define guia2 = Character("Ulises", color="#00ff00")
 image guia = "ulises.png"
 image guia_camina = "ulises_caminando_por_detras.png"
 image guia_pregunta = "ulises_preguntando.png"
@@ -28,7 +29,7 @@ image escalera_lab = "escalera_lab.jpg"
 image gym1 = "gym1.jpg"
 image gym2 = "gym2.jpg"
 #salas de profesores
-image salaprofesores = "sala_de_profesores.jpg"
+image salaprofesores = "sala_profesores.jpg"
 #videos 
 image biblioteca_video = Movie(play="videos/video_biblioteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image casino_arriba = Movie(play="videos/casino_arriba.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
@@ -40,14 +41,18 @@ image biblioteca_completa = Movie(play="videos/ir_a_bibloeteca_comple.webm", siz
 image adentro_biblioteca = Movie(play="videos/entrada_bibleoteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image dentro_biblio = "dentro_biblio.jpg"
 image ir_a_administrativo = Movie(play="videos/ir_a_administrativo.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image guia = "images/ulises.png"
+
 label start:
     scene Entrada_Afuera
-    show guia_saludo
+    show guia
     with fade
     queue music "audio/1.mp3" volume 0.5 #Incio de la música 
     guia "¡Hola! Bienvenido al tour virtual de la Universidad de Los Lagos. Hoy te acompañaré a recorrer los lugares más importantes de nuestro campus Chinquihue. Así podrás conocerlos antes de venir y no te perderás."
-    guia "Mi nombre es Ulises y hoy te acompañaré a conocer los espacios más importantes de nuestro campus Chinquihue. Sé que a veces es difícil ubicarse cuando uno es nuevo o viene de visita, por eso este recorrido"
-    guia "te ayudará a reconocer los lugares antes de llegar. Aquí podrás ver imágenes reales y aprender para qué sirve cada espacio de la universidad."
+    guia2 "Mi nombre es Ulises y hoy te acompañaré a conocer los espacios más importantes de nuestro campus Chinquihue. Sé que a veces es difícil ubicarse cuando uno es nuevo o viene de visita, por eso este recorrido"
+    guia2 "te ayudará a reconocer los lugares antes de llegar. Aquí podrás ver imágenes reales y aprender para qué sirve cada espacio de la universidad."
+    show guia at Position(xalign=1.0, yalign=1.0)
+
     menu:
         "¿A que lugar vamos para empezar?"
         "Ir la biblioteca":
@@ -76,24 +81,57 @@ label volver_inicio:
             jump despedida
 
 label biblioteca:
+    scene black
+    with fade
     scene bibliote_entrad
+    with dissolve
     show guia_camina
-    guia "!Entremos!"
+    with dissolve
+    guia2 "!Entremos!"
     show adentro_biblioteca
+    with dissolve
     $ renpy.pause(7.0, hard=True)
     hide adentro_biblioteca
     with dissolve
     scene dentro_biblio
     show guia_pregunta
-    guia "Esta es la biblioteca. Aquí puedes encontrar una gran variedad de libros, y recursos digitales para tus estudios. Además, la biblioteca cuenta con computadores disponibles para buscar información o realizar tus trabajos."
-    guia "Si necesitas un lugar tranquilo para concentrarte, aquí encontrarás zonas de silencio total. Es importante que respetes las normas de silencio y cuidado de los libros para que todos puedan usarlos."
-    jump volver_inicio
+    with dissolve
+    guia2 "Esta es la biblioteca. Aquí puedes encontrar una gran variedad de libros, y recursos digitales para tus estudios. Además, la biblioteca cuenta con computadores disponibles para buscar información o realizar tus trabajos."
+    guia2 "Si necesitas un lugar tranquilo para concentrarte, aquí encontrarás zonas de silencio total. Es importante que respetes las normas de silencio y cuidado de los libros para que todos puedan usarlos."
+    jump dondequieresir
+
+label dondequieresir:
+    scene Entrada_Afuera
+    show guia
+    with fade
+    queue music "audio/1.mp3" volume 0.5 #Incio de la música
+    show guia at Position(xalign=1.0, yalign=1.0)
+
+    menu:
+        "Volver a la biblioteca":
+            stop music fadeout 1.0
+            scene black
+            show biblioteca_completa
+            $ renpy.pause(11.0, hard=True)
+            jump biblioteca
+        "Seguir derecho":
+            jump derecho
+        "Ir al edificio principal":
+            stop music fadeout 1.0
+            scene black
+            show ir_edificio_principal
+            $ renpy.pause(10.2, hard=True)
+            jump edificio_principal
+        "Salir del juego":
+            jump volver_inicio
+
 
 label derecho:
     scene seg_derecho
     with dissolve
 
-    guia "¿A donde vamos ahora?"
+    guia2 "¿A donde vamos ahora?"
+    show guia at Position(xalign=1.0, yalign=1.0)
 
     menu:
         "Ir a la sala de videoconferencia":
@@ -119,7 +157,9 @@ label sala_videoconferencia:
     scene 
     show guia_camina
     with dissolve
-    guia "Esta es la sala de videoconferencia. Aquí puedes realizar reuniones virtuales o asistir a clases en línea."
+    guia2 "Esta es la sala de videoconferencia. Aquí puedes realizar reuniones virtuales o asistir a clases en línea."
+    show guia_pregunta at Position(xalign=1.0, yalign=1.0)
+
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
@@ -131,15 +171,16 @@ label edificio_administrativo:
     scene edificio_administrativo
     with dissolve
 
-    guia "Este es el edificio administrativo. Aquí puedes encontrar las oficinas de la administración de la universidad."
-    guia "Si necesitas ayuda con algo relacionado con tu matrícula, horarios o cualquier otro tema administrativo, este es el lugar al que debes acudir."
+    guia2 "Este es el edificio administrativo. Aquí puedes encontrar las oficinas de la administración de la universidad."
+    guia2 "Si necesitas ayuda con algo relacionado con tu matrícula, horarios o cualquier otro tema administrativo, este es el lugar al que debes acudir."
     jump edificio_administrativo_entrad
 
 label edificio_administrativo_entrad:
     scene edificio_administrativo_entrad
     with dissolve
+    show guia at Position(xalign=1.0, yalign=1.0)
 
-    guia "Esta es la entrada del edificio administrativo. Aquí puedes encontrar información sobre la universidad y sus servicios."
+    guia2 "Esta es la entrada del edificio administrativo. Aquí puedes encontrar información sobre la universidad y sus servicios."
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
@@ -151,7 +192,9 @@ label edificio_principal:
     scene entrada_principal
     show guia_camina
     with dissolve
-    guia "Este es el edificio principal de la universidad. Aquí puedes encontrar las aulas, laboratorios y oficinas de los profesores."
+    guia2 "Este es el edificio principal de la universidad. Aquí puedes encontrar las aulas, laboratorios y oficinas de los profesores."
+    show guia at Position(xalign=1.0, yalign=1.0)
+
     menu:
         "¿A donde vamos ahora?"
         "Ir a las aulas":
@@ -159,11 +202,6 @@ label edificio_principal:
         "Ir a la sala de profesores":
             jump sala_profesores
         "Ir al casino":
-            stop music fadeout 1.0
-            scene black
-            show ir_algym
-            $ renpy.pause(10.0, hard=True)
-            hide ir_algym
             jump casino
         "Salir del juego":
             jump despedida
@@ -172,23 +210,25 @@ label casino:
     scene entrada_casino
     with dissolve
 
-    guia "Aquí estamos en el casino. Este es un lugar donde los estudiantes pueden relajarse y disfrutar de un buen rato."
+    guia2 "Aquí estamos en el casino. Este es un lugar donde los estudiantes pueden relajarse y disfrutar de un buen rato."
     jump casino_interior
 
 label casino_interior:
     scene casino_interior
     with dissolve
 
-    guia "Este es el interior del casino. Aquí puedes encontrar mesas para almorzar y para calentar los almuerzos."
-    guia "Tambien puedes compra alimentos y bebidas en la cafetería."
+    guia2 "Este es el interior del casino. Aquí puedes encontrar mesas para almorzar y para calentar los almuerzos."
+    guia2 "Tambien puedes compra alimentos y bebidas en la cafetería."
     jump casino_arriba
 
 label casino_arriba:
     scene casino_arriba
     with dissolve
 
-    guia "En la parte de arriba del casino, puedes encontrar un lugar para descansar y relajarte."
-    guia "También hay mesas para almorzar y micro ondas."
+    guia2 "En la parte de arriba del casino, puedes encontrar un lugar para descansar y relajarte."
+    guia2 "También hay mesas para almorzar y micro ondas."
+    show guia at Position(xalign=1.0, yalign=1.0)
+
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
@@ -198,14 +238,15 @@ label casino_arriba:
 label escalera_lab:
     scene escalera_lab 
     with dissolve   
-    guia "Esta es la escalera que lleva al laboratorio, vamos a ver los laboratorios."    
+    guia2 "Esta es la escalera que lleva al laboratorio, vamos a ver los laboratorios."    
     jump laboratorio
 
 label laboratorio:
     scene laboratorio
     with dissolve
 
-    guia "Aquí estamos en el laboratorio. Este es un lugar donde los estudiantes pueden realizar experimentos y trabajos prácticos."
+    guia2 "Aquí estamos en el laboratorio. Este es un lugar donde los estudiantes pueden realizar experimentos y trabajos prácticos."
+    show guia at Position(xalign=1.0, yalign=1.0)
 
     menu:
         "¿A donde vamos ahora?"
@@ -215,23 +256,26 @@ label laboratorio:
             jump despedida
 
 label recto:
-    guia "Aquí irías derecho por el pasillo principal."
+    guia2 "Aquí irías derecho por el pasillo principal."
     jump volver_inicio
 
 label aulas:
-    guia "Estas son las salas de clases."
+    guia2 "Estas son las salas de clases."
     jump volver_inicio
 
 label sala_profesores:
-    guia "Esta es la sala de profesores."
+    scene salaprofesores
+    guia2 "Esta es la sala de los profesores donde los puedes encontrar si tienes una duda."
     jump volver_inicio
 
 label despedida:
-    scene black
+    scene portada
+    show guia_saludo
     with fade
 
-    guia "Gracias por acompañarme en este recorrido por todos los rincones de nuestra universidad."
-    guia "Espero que hayas disfrutado este tour virtual y que pronto puedas venir a conocerlo todo en persona."
+    guia2 "Gracias por acompañarme en este recorrido por todos los rincones de nuestra universidad."
+    guia2 "Espero que hayas disfrutado este tour virtual y que pronto puedas venir a conocerlo todo en persona."
+    show guia_saludo at Position(xalign=1.0, yalign=1.0)
 
     return
 

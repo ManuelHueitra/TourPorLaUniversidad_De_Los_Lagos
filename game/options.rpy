@@ -13,28 +13,21 @@
 ##
 ## El _() que rodea la cadena de texto la señala como traducible.
 
-define config.name = _("Tour por la Universidad")
+define config.name = _("Tour por la Universidad de Los Lagos")
+
 
 
 ## Determina si el título dado más arriba se muestra en el menú principal.
 ## Ajústalo a 'False' para ocultar el título.
 
 define gui.show_name = True
-
-
-## Versión del juego.
-
-define config.version = "1.2"
+define config.version = "2.0"
 
 
 ## Texto situado en la pantalla 'Acerca de' del juego. Sitúa el texto entre
 ## comillas triples y deja una línea en blanco entre párrafos.
 
-define gui.about = _p("""  
-""")
-
-define gui.about = _p("""
-Tour en la Universidad de Los Lagos
+define gui.about = _p("""Tour en la Universidad de Los Lagos
 Este juego interactivo fue desarrollado como parte del Taller de Introducción a la Ingeniería Informática de la Universidad de Los Lagos. Su propósito es ayudar a los estudiantes nuevos, visitantes y personas interesadas en conocer el campus Chinquihue de forma entretenida y educativa.
 A través de este tour virtual, los usuarios podrán recorrer distintos espacios importantes de la universidad, como la biblioteca, las salas de clases y otros lugares comunes, con el objetivo de familiarizarse con el entorno y moverse con mayor confianza en su vida universitaria diaria.
 El juego está diseñado como una novela visual utilizando Ren’Py, permitiendo presentar imágenes, diálogos y decisiones para una experiencia sencilla y accesible, tanto en computador como en dispositivos móviles.
@@ -59,28 +52,6 @@ define config.has_music = True
 define config.has_voice = True
 
 
-## Para permitir al usuario probar el volumen de los canales de sonido o voz,
-## descomenta la línea más abajo y ajústala a un sonido de ejemplo.
-
-# define config.sample_sound = "sample-sound.ogg"
-# define config.sample_voice = "sample-voice.ogg"
-
-
-## Descomenta la línea siguiente para ajustar un archivo de audio que sonará en
-## el menú principal. Este archivo seguirá sonando en el juego hasta que sea
-## detenido o se reproduzca otro archivo.
-
-# define config.main_menu_music = "main-menu-theme.ogg"
-
-
-## Transiciones ################################################################
-##
-## Estas variables ajustan transiciones usadas ante ciertos eventos. Cada
-## variable debe indicar una transición o bien 'None', cuando no se desea usar
-## ninguna transición.
-
-## Entrar o salir del manú del juego.
-
 define config.enter_transition = dissolve
 define config.exit_transition = dissolve
 
@@ -100,20 +71,6 @@ define config.after_load_transition = None
 define config.end_game_transition = None
 
 
-## No existe la variable que ajusta la transición cuando el juego comienza. Para
-## ello se usa la sentencia 'with' al mostrar la escena inicial.
-
-
-## Gestión de ventanas #########################################################
-##
-## Esto controla cuándo se muestra la ventana de diálogo. Si es "show", es
-## siempre visible. Si es "hide", solo se muestra cuando hay diálogo presente.
-## Si es "auto", la ventana se esconde antes de las sentencias 'scene' y se
-## muestra de nuevo cuando hay diálogo que presentar.
-##
-## Una vez comenzado el juego, esto se puede ajustar con las sentencias "window
-## show", "window hide", y "window auto".
-
 define config.window = "auto"
 
 
@@ -129,7 +86,7 @@ define config.window_hide_transition = Dissolve(.2)
 ## infinito; cualquier otro número indica el número de caracteres por segundo
 ## que se mostrarán.
 
-default preferences.text_cps = 0
+default preferences.text_cps = 30
 
 
 ## El retraso por defecto del auto-avance. Números más grandes indican esperas
@@ -168,28 +125,8 @@ define config.window_icon = "gui/window_icon.png"
 ## distribución.
 
 init python:
-
-    ## Las funciones siguientes toman patrones de archivos. No son relevantes
-    ## las mayúsculas o minúsculas. Son relativos al directorio base, con o sin
-    ## una / inicial. Si corresponden más de un patrón, se usa el primero.
-    ##
-    ## En un patrón:
-    ##
-    ## / es el separador de directorios.
-    ##
-    ## * corresponde a todos los carácteres, excepto el separador de
-    ##   directorios.
-    ##
-    ## ** corresponde a todos los carácteres, incluynedo el separador de
-    ##    directorios.
-    ##
-    ## Por ejemplo, "*.txt" corresponde a los archivos .txt en el directorio
-    ## de base, "game/**.ogg" corresponde a los archivos .ogg del directorio
-    ## 'game' y sus subdirectorios y "**.psd" corresponde a los archivos .psd en
-    ## cualquier parte del proyecto.
-
-    ## Clasifica archivos como 'None' para excluirlos de la distribución.
-
+    style.say_dialogue.color = "#ffffff"  # Color del diálogo
+    style.say_label.color = "#000000"     # Color del nombre
     build.classify('**~', None)
     build.classify('**.bak', None)
     build.classify('**/.**', None)
