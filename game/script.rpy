@@ -19,7 +19,7 @@ image edificio_administrativo_entrad = "edificio_administrativo.jpg"
 #casino imagenes 
 image casino = "casino.jpg"
 image casino_interior = "casino_interior.jpg"
-image casino_arriba = "casino_arriba.jpg"
+image casino_arriba1 = "casino_arriba.jpg"
 ##laboratorio imagenes
 image laboratorio = "laboratorio.jpg"
 image escalera_lab = "escalera_lab.jpg"
@@ -42,7 +42,8 @@ image adentro_biblioteca = Movie(play="videos/entrada_bibleoteca.webm", size=(19
 image dentro_biblio = "dentro_biblio.jpg"
 image ir_a_administrativo = Movie(play="videos/ir_a_administrativo.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image guia = "images/ulises.png"
-
+image ir_videoconfe = Movie(play="videos/ir_a_videoconferencia.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
+image sala_de_conferen = "images/sala_confe.jpg"
 label start:
     scene Entrada_Afuera
     show guia
@@ -136,9 +137,9 @@ label derecho:
     menu:
         "Ir a la sala de videoconferencia":
             stop music fadeout 1.0
-            show sala_videoconferencia
-            $ renpy.pause(3.0, hard=True)
-            hide sala_videoconferencia
+            show ir_videoconfe
+            with dissolve
+            $ renpy.pause(4.0, hard=True)
             jump sala_videoconferencia
         "Ir al edicio administrativo":
             stop music fadeout 1.0
@@ -154,18 +155,40 @@ label derecho:
             jump despedida
 
 label sala_videoconferencia:
-    scene 
+    scene sala_de_conferen
     show guia_camina
     with dissolve
+    hide guia_camina
+    show guia at Position(xalign=1.0, yalign=1.0)
     guia2 "Esta es la sala de videoconferencia. Aquí puedes realizar reuniones virtuales o asistir a clases en línea."
+    hide guia
     show guia_pregunta at Position(xalign=1.0, yalign=1.0)
+    jump dondequieresir2
+
+label dondequieresir2:
+    scene Entrada_Afuera
+    show guia
+    with fade
+    queue music "audio/1.mp3" volume 0.5 #Incio de la música
+    show guia at Position(xalign=1.0, yalign=1.0)
 
     menu:
-        "¿A donde vamos ahora?"
-        "Volver al inicio":
-            jump volver_inicio
+        "Volver a la biblioteca":
+            stop music fadeout 1.0
+            scene black
+            show biblioteca_completa
+            $ renpy.pause(11.0, hard=True)
+            jump biblioteca
+        "Seguir derecho":
+            jump derecho
+        "Ir al edificio principal":
+            stop music fadeout 1.0
+            scene black
+            show ir_edificio_principal
+            $ renpy.pause(10.2, hard=True)
+            jump edificio_principal
         "Salir del juego":
-            jump despedida
+            jump volver_inicio
 
 label edificio_administrativo: 
     scene edificio_administrativo
@@ -181,30 +204,27 @@ label edificio_administrativo_entrad:
     show guia at Position(xalign=1.0, yalign=1.0)
 
     guia2 "Esta es la entrada del edificio administrativo. Aquí puedes encontrar información sobre la universidad y sus servicios."
-    menu:
-        "¿A donde vamos ahora?"
-        "Volver al inicio":
-            jump volver_inicio
-        "Salir del juego":
-            jump despedida
+    jump dondequieresir2
 
 label edificio_principal:
     scene entrada_principal
     show guia_camina
     with dissolve
     guia2 "Este es el edificio principal de la universidad. Aquí puedes encontrar las aulas, laboratorios y oficinas de los profesores."
+    hide guia_camina
     show guia at Position(xalign=1.0, yalign=1.0)
 
     menu:
         "¿A donde vamos ahora?"
-        "Ir a las aulas":
-            jump aulas
         "Ir a la sala de profesores":
             jump sala_profesores
         "Ir al casino":
             jump casino
         "Salir del juego":
             jump despedida
+        "seguir derecho":
+            jump recto2
+
 
 label casino:
     scene entrada_casino
@@ -228,7 +248,7 @@ label casino_arriba:
     guia2 "En la parte de arriba del casino, puedes encontrar un lugar para descansar y relajarte."
     guia2 "También hay mesas para almorzar y micro ondas."
     show guia at Position(xalign=1.0, yalign=1.0)
-
+    scene casino_arriba1
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
@@ -266,7 +286,7 @@ label aulas:
 label sala_profesores:
     scene salaprofesores
     guia2 "Esta es la sala de los profesores donde los puedes encontrar si tienes una duda."
-    jump volver_inicio
+    call edificio_principal
 
 label despedida:
     scene portada
