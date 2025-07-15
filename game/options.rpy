@@ -20,7 +20,7 @@ define config.name = _("Tour por la Universidad de Los Lagos")
 ## Determina si el título dado más arriba se muestra en el menú principal.
 ## Ajústalo a 'False' para ocultar el título.
 
-define gui.show_name = True
+define gui.show_name = False
 define config.version = "2.0"
 
 
