@@ -131,8 +131,8 @@ label derecho:
     menu:
         "Ir a la sala de videoconferencia":
             stop music fadeout 1.0
-            hide guia with dissolve # oculta la guía anterior si estaba mostrada
-            show guia_camina at right with dissolve # muestra guía caminando
+            hide guia with dissolve
+            show guia_camina at right with dissolve
             guia2 "Vamos a la sala de videoconferencia."
             hide guia_camina with dissolve
             show ir_videoconfe with dissolve
@@ -238,7 +238,7 @@ label casino_arriba:
     scene casino_arriba
     with dissolve
     show guia at Position(xalign=1.0, yalign=1.0)
-    $ renpy.pause(10.0) # duración del video en segundos
+    $ renpy.pause(10.0) 
     scene casino_arriba1 with dissolve
     show guia at Position(xalign=1.0, yalign=1.0)
     guia2 "En la parte de arriba del casino, puedes encontrar un lugar para descansar y relajarte."
@@ -307,14 +307,14 @@ label dondequieresir3:
             jump recto2
         "Salir del juego":
             jump despedida
+
 label recto2:
     scene ir_recto2 with fade
     show guia_camina at right with dissolve
     guia2 "Sigamos derecho por el pasillo principal."
     hide guia_camina with dissolve
-    $ renpy.pause(13.0)
     scene ir_recto2 with fade
-
+    $ renpy.pause(13.0)
     jump gym
 
 
