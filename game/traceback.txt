@@ -1,0 +1,22 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "script.rpy", line 331, in script
+    jump gym
+ScriptError: could not find label 'gym'.
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "script.rpy", line 331, in script
+    jump gym
+  File "C:\Users\manuel\Downloads\renpy-8.3.7-sdk\renpy\ast.py", line 1712, in execute
+    rv = renpy.game.script.lookup(target)
+  File "C:\Users\manuel\Downloads\renpy-8.3.7-sdk\renpy\script.py", line 1103, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'gym'.
+
+Windows-10-10.0.19041 AMD64
+Ren'Py 8.3.8.25061201+nightly
+Tour por la Universidad de Los Lagos 2.0
+Thu Jul 17 12:58:12 2025

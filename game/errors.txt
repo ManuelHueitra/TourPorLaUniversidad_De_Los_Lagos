@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "script.rpy", line 314: play requires a file
+    play video $$$
+               ^
+
+Ren'Py Version: Ren'Py 8.3.8.25061201+nightly
+Fri Jul 18 01:17:31 2025

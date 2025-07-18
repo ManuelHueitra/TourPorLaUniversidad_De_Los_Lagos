@@ -20,6 +20,7 @@ image edificio_administrativo_entrad = "edificio_administrativo.jpg"
 image casino = "casino.jpg"
 image casino_interior = "casino_interior.jpg"
 image casino_arriba1 = "casino_arriba.jpg"
+image a = "images/a.jpg"
 ##laboratorio imagenes
 image laboratorio = "laboratorio.jpg"
 image escalera_lab = "escalera_lab.jpg"
@@ -29,6 +30,7 @@ image gym2 = "gym2.jpg"
 #salas de profesores
 image salaprofesores = "sala_profesores.jpg"
 #videos 
+image ir_al_gym = Movie(play="videos/ir_al_gym.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image biblioteca_video = Movie(play="videos/video_biblioteca.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image casino_arriba = Movie(play="videos/casino_arriba.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
 image ir_videoconfe = Movie(play="videos/ir_a_videoconferencia.webm", size=(1920,1080), loop=False, xalign=0.5, yalign=0.5)
@@ -72,14 +74,6 @@ label start:
             $ renpy.pause(10.2, hard=True)
             jump edificio_principal
         "Salir del juego":
-            jump volver_inicio
-
-label volver_inicio:
-    menu:
-        "¿Qué deseas hacer?"
-        "Volver al principales":
-            jump start
-        "Finalizar el tour":
             jump despedida
 
 label biblioteca:
@@ -125,35 +119,35 @@ label dondequieresir:
             $ renpy.pause(10.2, hard=True)
             jump edificio_principal
         "Salir del juego":
-            jump volver_inicio
-
+            jump despedida
 
 label derecho:
     scene seg_derecho
     with dissolve
-
-    guia2 "¿A donde vamos ahora?"
+    show guia_saludo at Position(xalign=1.0, yalign=1.0) with dissolve
+    guia2 "¿A dónde vamos ahora?"
+    hide guia_saludo
     show guia at Position(xalign=1.0, yalign=1.0)
-
     menu:
         "Ir a la sala de videoconferencia":
             stop music fadeout 1.0
-            show ir_videoconfe
-            with dissolve
+            hide guia with dissolve # oculta la guía anterior si estaba mostrada
+            show guia_camina at right with dissolve # muestra guía caminando
+            guia2 "Vamos a la sala de videoconferencia."
+            hide guia_camina with dissolve
+            show ir_videoconfe with dissolve
             $ renpy.pause(4.0, hard=True)
             jump sala_videoconferencia
-        "Ir al edicio administrativo":
+        "Ir al edificio administrativo":
             stop music fadeout 1.0
             guia2 "Vamos al edificio administrativo."
             show ir_a_administrativo
-            show guia_camina at right
-            with dissolve
+            show guia_camina at right with dissolve
             $ renpy.pause(17.0, hard=True)
             jump edificio_administrativo_entrad
-        "Volver al inicio":
-            jump volver_inicio
         "Salir del juego":
             jump despedida
+
 
 label sala_videoconferencia:
     scene sala_de_conferen
@@ -189,13 +183,11 @@ label dondequieresir2:
             $ renpy.pause(10.2, hard=True)
             jump edificio_principal
         "Salir del juego":
-            jump volver_inicio
+            jump despedida
 
 label edificio_administrativo: 
     scene edificio_administrativo
     with dissolve
-
-
     jump edificio_administrativo_entrad
 
 label edificio_administrativo_entrad:
@@ -220,25 +212,26 @@ label edificio_principal:
             jump sala_profesores
         "Ir al casino":
             jump casino
-        "Salir del juego":
-            jump despedida
         "seguir derecho":
             jump recto2
-
+        "Salir del juego":
+            jump despedida
 
 label casino:
     scene entrada_casino
     with dissolve
-
+    show guia at right with dissolve
     guia2 "Aquí estamos en el casino. Este es un lugar donde los estudiantes pueden relajarse y disfrutar de un buen rato."
+    hide guia with dissolve
     jump casino_interior
 
 label casino_interior:
     scene casino_interior
     with dissolve
-    show guia_camina
+    show guia_camina at right with dissolve
     guia2 "Este es el interior del casino. Aquí puedes encontrar mesas para almorzar y para calentar los almuerzos."
-    guia2 "Tambien puedes compra alimentos y bebidas en la cafetería."
+    guia2 "También puedes comprar alimentos y bebidas en la cafetería."
+    hide guia_camina with dissolve
     jump casino_arriba
 
 label casino_arriba:
@@ -251,7 +244,7 @@ label casino_arriba:
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
-            jump volver_inicio
+            jump start
         "Salir del juego":
             jump despedida
 
@@ -279,15 +272,14 @@ label laboratorio:
         "Salir del juego":
             jump despedida
 
-label recto:
-    guia2 "Aquí irías derecho por el pasillo principal."
-    jump volver_inicio
-
 
 label sala_profesores:
     scene salaprofesores
+    show guia at right with dissolve # muestra la guía en la derecha con efecto dissolve
     guia2 "Esta es la sala de los profesores donde los puedes encontrar si tienes una duda."
+    hide guia with dissolve # opcional: oculta la guía después si no la necesitas en el próximo label
     call edificio_principal
+
 
 label dondequieresir3:
     scene entrada_principal
@@ -301,41 +293,40 @@ label dondequieresir3:
             jump sala_profesores
         "Ir al casino":
             jump casino
-        "Salir del juego":
-            jump despedida
+        
         "seguir derecho":
             stop music fadeout 1.0
             scene black
-            show ir_recto2
+            play video "videos/ir_recto2.webm"
             $ renpy.pause(14.0, hard=True)
             show guia_camina
-            with dissolve
             jump recto2
-
-label recto2: #!
-    show ir_recto2
-    $ renpy.pause(14.0, hard=True)
-    hide ir_recto2
-    guia2 "Sigamos derecho por el pasillo principal."
-    with dissolve
-    scene Entrada_Afuera
-    show guia_camina
-    with dissolve
-    hide guia_camina
-    show guia at Position(xalign=1.0, yalign=1.0)
-
-    menu:
-        "¿A donde vamos ahora?"
-        "Ir al gimnasio":
-            stop music fadeout 1.0
-            scene black
-            show ir_algym
-            $ renpy.pause(4.0, hard=True)
-            jump gym
-        "Volver al inicio":
-            jump volver_inicio
         "Salir del juego":
             jump despedida
+label recto2:
+    scene ir_recto2 with fade
+    show guia_camina at right with dissolve
+    guia2 "Sigamos derecho por el pasillo principal."
+    hide guia_camina with dissolve
+    $ renpy.pause(13.0)
+    scene ir_recto2 with fade  # vuelve a mostrar el fondo antes de saltar
+
+    jump gym
+
+
+label gym:
+    scene gym1 with fade
+    show ir_al_gym with dissolve
+    $ renpy.pause(13.0)
+    show guia_apunta at right with dissolve
+    guia2 "Este es el gimnasio."
+
+    menu:
+        "Ir al principio":
+            jump start
+        "Terminar tour":
+            jump despedida
+
 label despedida:
     scene portada
     show guia_saludo
@@ -343,7 +334,6 @@ label despedida:
     guia2 "Gracias por acompañarme en este recorrido por todos los rincones de nuestra universidad."
     guia2 "Espero que hayas disfrutado este tour virtual y que pronto puedas venir a conocerlo todo en persona."
     show guia_saludo at Position(xalign=1.0, yalign=1.0)
-
     return
 label splashscreen:
     scene black
