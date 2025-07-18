@@ -238,15 +238,19 @@ label casino_arriba:
     scene casino_arriba
     with dissolve
     show guia at Position(xalign=1.0, yalign=1.0)
+    $ renpy.pause(10.0) # duración del video en segundos
+    scene casino_arriba1 with dissolve
+    show guia at Position(xalign=1.0, yalign=1.0)
     guia2 "En la parte de arriba del casino, puedes encontrar un lugar para descansar y relajarte."
     guia2 "También hay mesas para almorzar y micro ondas."
-    scene casino_arriba1
     menu:
         "¿A donde vamos ahora?"
         "Volver al inicio":
             jump start
         "Salir del juego":
             jump despedida
+
+
 
 label dondevamos:
     scene casino_arriba
@@ -275,9 +279,9 @@ label laboratorio:
 
 label sala_profesores:
     scene salaprofesores
-    show guia at right with dissolve # muestra la guía en la derecha con efecto dissolve
+    show guia at right with dissolve
     guia2 "Esta es la sala de los profesores donde los puedes encontrar si tienes una duda."
-    hide guia with dissolve # opcional: oculta la guía después si no la necesitas en el próximo label
+    hide guia with dissolve
     call edificio_principal
 
 
@@ -309,7 +313,7 @@ label recto2:
     guia2 "Sigamos derecho por el pasillo principal."
     hide guia_camina with dissolve
     $ renpy.pause(13.0)
-    scene ir_recto2 with fade  # vuelve a mostrar el fondo antes de saltar
+    scene ir_recto2 with fade
 
     jump gym
 
@@ -335,6 +339,8 @@ label despedida:
     guia2 "Espero que hayas disfrutado este tour virtual y que pronto puedas venir a conocerlo todo en persona."
     show guia_saludo at Position(xalign=1.0, yalign=1.0)
     return
+
+
 label splashscreen:
     scene black
     show image "images/portada.jpg"

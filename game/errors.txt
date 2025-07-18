@@ -1,0 +1,18 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "script.rpy", line 246: menu statement expects a non-empty block.
+    menu:
+        ^
+
+File "script.rpy", line 248: expected statement.
+    "Volver al inicio":
+                      ^
+
+File "script.rpy", line 250: expected statement.
+    "Salir del juego":
+                     ^
+
+Ren'Py Version: Ren'Py 8.3.8.25061201+nightly
+Fri Jul 18 09:28:17 2025
